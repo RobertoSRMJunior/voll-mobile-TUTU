@@ -12,29 +12,29 @@ export default function Cadastro({ navigation }: any) {
   const [dados, setDados] = useState({} as any);
   const [planos, setPlanos] = useState([] as number[])
   const toast = useToast()
-
-  function avancarSecao(){
-    if(numSecao < secoes.length - 1){
-      setNumSecao(numSecao+1)
+  
+  function avancarSecao() {
+    if (numSecao < secoes.length - 1) {
+      setNumSecao(numSecao + 1)
     }
-    else{
+    else {
       console.log(dados)
       console.log(planos)
       cadastrar()
     }
   }
 
-  function voltarSecao(){
-    if(numSecao > 0){
+  function voltarSecao() {
+    if (numSecao > 0) {
       setNumSecao(numSecao - 1)
     }
   }
 
-  function atualizarDados(id: string, valor: string){
-    setDados({...dados, [id]: valor})
+  function atualizarDados(id: string, valor: string) {
+    setDados({ ...dados, [id]: valor })
   }
 
-  async function cadastrar(){
+  async function cadastrar() {
     const resultado = await cadastrarPaciente({
       cpf: dados.cpf,
       nome: dados.nome,
@@ -60,8 +60,7 @@ export default function Cadastro({ navigation }: any) {
         backgroundColor: 'green.500',
       })
       navigation.replace('Login');
-    }
-    else {
+    } else {
       toast.show({
         title: 'Erro ao cadastrar',
         description: 'Verifique os dados e tente novamente',
@@ -81,10 +80,10 @@ export default function Cadastro({ navigation }: any) {
         {
           secoes[numSecao]?.entradaTexto?.map(entrada => {
             return (
-              <EntradaTexto 
-                label={entrada.label} 
-                placeholder={entrada.placeholder} 
-                key={entrada.id} 
+              <EntradaTexto
+                label={entrada.label}
+                placeholder={entrada.placeholder}
+                key={entrada.id}
                 secureTextEntry={entrada.secureTextEntry}
                 value={dados[entrada.name]}
                 onChangeText={(text) => atualizarDados(entrada.name, text)}
@@ -100,12 +99,12 @@ export default function Cadastro({ navigation }: any) {
         {
           secoes[numSecao].checkbox.map(checkbox => {
             return (
-              <Checkbox 
-                key={checkbox.id} 
+              <Checkbox
+                key={checkbox.id}
                 value={checkbox.value}
                 onChange={() => {
                   setPlanos((planosAnteriores) => {
-                    if(planosAnteriores.includes(checkbox.id)){
+                    if (planosAnteriores.includes(checkbox.id)) {
                       return planosAnteriores.filter((id) => id !== checkbox.id)
                     }
                     return [...planosAnteriores, checkbox.id]
@@ -113,14 +112,14 @@ export default function Cadastro({ navigation }: any) {
                 }}
                 isChecked={planos.includes(checkbox.id)}
               >
-              {checkbox.value}
-            </Checkbox>)
+                {checkbox.value}
+              </Checkbox>)
           })
         }
       </Box>
       {numSecao > 0 && <Botao onPress={() => voltarSecao()} bgColor="gray.400">Voltar</Botao>}
       <Botao onPress={() => avancarSecao()} mt={4} mb={20}>
-        {numSecao == 2? 'Finalizar' : 'Avancar'}
+        {numSecao == 2 ? 'Finalizar' : 'Avancar'}
       </Botao>
     </ScrollView>
   );
