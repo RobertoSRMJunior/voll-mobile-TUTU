@@ -15,24 +15,15 @@ export default function Cadastro({ navigation }: any) {
 
     function avancarSecao() {
         if (numSecao < secoes.length - 1) {
-            if (dados !== '') {
-                toast.show({
-                    title: "Cadastrado!",
-                    description: "Cadastrado!",
-                    backgroundColor: "green.500"
-                })
-                setNumeroSecao(numSecao + 1);
-            } else {
-                toast.show({
-                    title: "Erro preencha todos os campos!",
-                    description: "Erro!",
-                    backgroundColor: "red.500"
-                })
-                setNumeroSecao(numSecao);
-            }
+            setNumeroSecao(numSecao + 1);
         } else {
             console.log(dados);
             console.log(planos);
+            toast.show({
+                title: "Cliente Cadastrado!",
+                description: "Cadastro realizado com sucesso!",
+                backgroundColor: "green.500"
+            })
         }
     }
 
