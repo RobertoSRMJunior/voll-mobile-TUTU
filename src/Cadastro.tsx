@@ -84,6 +84,7 @@ export default function Cadastro({ navigation }: any) {
         description: 'Verifique os dados e tente novamente',
         backgroundColor: 'red.500',
       })
+      console.log('Erro ao cadastrar');
     }
   }
 
