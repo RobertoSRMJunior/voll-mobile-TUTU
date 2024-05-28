@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { jwtDecode } from 'jwt-decode';
 
 
-export default function Login({ navigation } : any) {
+export default function Login({ navigation }: any) {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [carregando, setCarregando] = useState(true)
@@ -19,19 +19,19 @@ export default function Login({ navigation } : any) {
   useEffect(() => {
     // Deslogar 
     //AsyncStorage.removeItem('token')
-    async function verificarLogin(){
+    async function verificarLogin() {
       const token = await AsyncStorage.getItem('token')
-      if(token){
+      if (token) {
         navigation.replace('Tabs')
       }
       setCarregando(false)
     }
     verificarLogin()
-  },[])
+  }, [])
 
-  async function login(){
+  async function login() {
     const resultado = await fazerLogin(email, senha)
-    if(resultado){
+    if (resultado) {
       const { token } = resultado
       AsyncStorage.setItem('token', token)
 
@@ -40,7 +40,7 @@ export default function Login({ navigation } : any) {
       AsyncStorage.setItem('pacientId', pacienteId)
       navigation.replace('Tabs')
     }
-    else{
+    else {
       toast.show({
         title: "Erro no login",
         description: "O email ou senha não conferem",
@@ -49,7 +49,7 @@ export default function Login({ navigation } : any) {
     }
   }
 
-  if(carregando){
+  if (carregando) {
     return null
   }
 
