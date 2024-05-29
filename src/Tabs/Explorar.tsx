@@ -9,21 +9,21 @@ import { useState } from "react";
 interface Especialista {
   nome: string,
   imagem: string,
-  especialiadade: string,
-  id: string
+  especialidade: string,
+  id: string,
 }
 
 export default function Explorar() {
   const [estado, setEstado] = useState('');
   const [especialidade, setEspecialidade] = useState('');
-  const [resultadoBusca, setResultadoBusca] = useState([]);
+  const [resultadoBusca, setResultadoBuscar] = useState([]);
 
   async function buscar() {
     if (!estado || !especialidade) return null
     const resultado = await buscarEspecialistaPorEstado(estado, especialidade)
     if (resultado) {
-      setResultadoBusca(resultado);
-      console.log(resultado);
+      setResultadoBuscar(resultado)
+      console.log(resultado)
     }
   }
 
@@ -50,7 +50,7 @@ export default function Explorar() {
         {resultadoBusca?.map((especialista: Especialista, index) => (
           <VStack flex={1} w="100%" alignItems="flex-start" bgColor="white" key={index}>
             <CardConsulta
-              especialidade={especialista.especialiadade}
+              especialidade={especialista.especialidade}
               foto={especialista.imagem}
               nome={especialista.nome}
             />
